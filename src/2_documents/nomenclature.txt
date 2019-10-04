@@ -1,0 +1,86 @@
+
+file name
+  In the context of the file system.
+
+  The name of a file including all dot suffices etc, but not including the directory
+  path for finding it on disk
+
+file type
+  In the context of the file system.
+
+  For the archive, we only consider three types: file with data contents, file with link
+  contents (symbolic link), and a special file (such as a socket). Currently we ignore
+  special files, and do not recognize hard links as such.
+
+node
+  In the context of the archive.
+  A number used to identify a stored file.
+
+node phrase
+  In the context of archive, and more specifically that of taxonomy files.
+  A phrase that holds infomration about a node.
+
+node_set
+  In the context of archive, and more specifically that of taxonomy files.
+  A sequence of phrases, starting with a node phrase, and followed by source
+  phrases for the node.
+        
+path 
+  In the context of the file system.
+
+   relative:
+      starting from a given directory a list of directories for finding a given file.
+      the special directory '..' refers to the parent directory from the position thus
+      far found in the path
+
+   absolute:
+    starting from the root of the file system a list of directories
+    for finding the directory that contains a given file.
+
+pathname
+  In the context of the file system, and used in taxonomy files.
+  Path followed by a slash followed by a file name in one string.
+
+phrase 
+  In the context of archive, and more specifically that of taxonomy files.
+  Starting with the type token, a sequence of tokens on the same line (or line pair for '.' notation)
+
+source phrase
+  In the context of archive, and more specifically that of taxonomy files.
+  A phrase with type 'source'.  Documents the pathname and mtime of a source file.
+
+source_file
+  In the context of the file system.
+  A file that was copied into the archive.
+
+sources_file
+   In the context of the archive.
+   Same as a taxonomy file.  
+
+taxonomy
+   In the context of the archive.
+   All the pathnames and mtimes for all the nodes.
+
+taxonomy file
+   In the context of the archive.
+   Found under the 'only-one/tax' directory.
+
+   Holds node_sets which provide a) a node number b) pathnames and mtimes for all the
+   sources files that correspond to said node.
+
+taxonomy pathname
+   In the context of the file system structure of the archive.
+   The pathname for a taxonomy file within the archive.
+   Currently something like 'only-one/tax/sources;0'.
+
+token 
+   In the context of archive, and more specifically that of taxonomy files.
+   Coponent of phrases.
+   Current starts with a '#' and then takes on one of two forms.
+
+versioned file name
+   In the context of the file system structure of the archive.
+   A file name with a suffix of a semicolon followed by a version number.  
+   e.g. ';0' for version 0, which is the most recent version.
+   Such file names are found in the 'only-one/tax' directory.
+

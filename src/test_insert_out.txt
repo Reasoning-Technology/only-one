@@ -1,7 +1,7 @@
 + ./insert -v --exclude rdiff-backup-data --exclude '\.hg.*' test_archive test_source1
 sourcing files from: "test_source1"
 placing nodes in store at: "test_archive/store"
-parsing taxonomy file: "test_archive/tax/sources-28324" to get the nodes_map.. 
+parsing taxonomy file: "test_archive/tax/sources-10705" to get the nodes_map.. 
 parse complete
 traversing source directory on disk.. found 7 files
 inserting files not already in the archive and not excluded
@@ -19,7 +19,7 @@ insert-file "test_source1/tmp/.hgignore"
 + ./insert -v --list_insert test_archive test_source2
 sourcing files from: "test_source2"
 placing nodes in store at: "test_archive/store"
-parsing taxonomy file: "test_archive/tax/sources-28331" to get the nodes_map.. 
+parsing taxonomy file: "test_archive/tax/sources-10710" to get the nodes_map.. 
 parse complete
 traversing source directory on disk.. found 8 files
 inserting files not already in the archive and not excluded

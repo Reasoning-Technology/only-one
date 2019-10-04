@@ -206,12 +206,11 @@ using namespace std;
   }
 
 /*--------------------------------------------------------------------------------
+  Traverses the directory tree found at 'source_path'.  For each file that does
+  not match an excluded pattern, it calls 'insert_if_unique(file)'.
 
-    calls nodes_map::parse to recover the node map from the tax/sources.  The node
-    map is a map of node numbers found via checksums.
-
-    Traverses the directory tree found at 'source_path'.  For each file that does
-    not match an excluded pattern, it calls 'insert_if_unique(file)'.
+    starts by calling nodes_map::parse to recover the node map from the sources file found
+    at 'taxonomy_pathname'.
 
     tells the nodes_map object in memory to print an ascii imagege back to a tax/sources
     files.
@@ -231,7 +230,7 @@ using namespace std;
     ,bool list_insert // individual file insert commands to be used for incremental backup on mirrors
   ){
 
-    // open, parse into memory, and close the  sources taxonomy
+    // open, parse into memory, and close, the sources file 
     //
       ifstream is(taxonomy_pathname);
       if( !is.good() ){
@@ -377,7 +376,7 @@ using namespace std;
 
   //----------------------------------------
   // pull out the program arguments: the archive and source paths
-  //    see file.h for blaze_path
+  //    see file.h for blaze_path - makes directories along the whole path if needed
   // 
     if( args.size() != 2 ){
       cerr << "need two arguments, but found " << args.size() << " argument";
