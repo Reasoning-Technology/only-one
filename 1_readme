@@ -1,6 +1,10 @@
 
-I wrote this utility in 2012 so as to compact files from a number of nearly identical
-archive CDs then DVDs into one archive.
+I wrote this C++ archive utility in 2012 so as to compact files from a number of nearly
+identical archive CDs/DVDs into one archive.
+
+The command line 'insert' (was called 'arch_insert' at one time) command will insert all
+the files found in a directory tree.  I never wrote restore, rather if I needed a file I
+manually looked it up the node number in from the 'sources' file and copied it back.
 
 It served me well for some years; however, I am now writing a more sophisticated tool to
 look for patterns in the archive.  My goal in modifying this code today (2019-10-04) is to

@@ -2,7 +2,6 @@
 bug prevents absolute path names,  as 'blaze_path' starts with a null token
 for absolute paths ..
 
-
 need to make hardlinks and set the permisions to read only on the original
 link, rather than doing a copy. -- hardlinks would cause files to be left
 behind after the archive is deleted, and we would have no way to find the 

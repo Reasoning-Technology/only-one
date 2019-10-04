@@ -1,0 +1,46 @@
+
+What this program is.
+
+   This is an archive for storing only one copy of each file placed in it, and to support
+   fancy indexing of those files.
+
+   This archive is to be used on a large site that has a number of parallel distributed
+   evolutions of projects.
+
+
+How the archive is organized
+
+  There are no external commands for manipulating the archive, rather the archive comes
+  with its own commands, and the source code for those commands built in.  So for example
+  to insert a file into the archive one uses the program   <archive_name>/bin/insert ...
+
+  An archive is a directory with a number of subdirectories including: 
+   'doc' for some documentation
+   'src' for the program sources
+   'bin' for the complied executables
+   'store' for the files, 
+   'tax' for an index into the files.
+
+  We don't expect users to be poking around inside the archive directory.  Note that
+  manual modification of files in the archive could destroy it.  If something goes wrong,
+  we hope that having the sources will be helpful for an experienced programmer.
+
+  In the current application the store directory is quite large, so the cost of keeping
+  the source code with the archive is relatively small.
+
+How to build the executables
+
+   first make a copy of the archive
+
+   read over the files and make sure you have the necessary tools installed
+
+   in /src directory and type 'make' providing the appropriate targets, be
+   sure to run the test cases provided, and many others.  Don't be bashful about
+   adding more tests into the archive
+
+
+
+
+
+
+

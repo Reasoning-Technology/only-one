@@ -1,0 +1,36 @@
+
+directory.h
+  code to walk a directory tree, various pathname manipulation routines
+
+parse_status.h  
+   error return codes for parsers
+
+phrase.h        
+   'controled strings' code for string coding that doesn't need escapes for quotes
+   tokens that are 'controlled strings' 
+   'phrases' which are sequences of tokens, where the first token is the phrase type
+
+utils.h         
+   stuff to help debugging,   print routines from stringstream and istream
+
+taxonomy.h  
+  defines a node_set:  a node phrase, followed by one or more source phrases, then a blank line
+  a map of nodes
+  the node number allocator
+
+types.h         
+   #define constants and useful type definitions
+
+file.h          
+  create a signature for a file
+  see if two files are the same
+  copy a file
+
+directory.h          
+  -directory needs phrase (phrase.h) because it prints a file record into a phrase
+  strip trailing slashes
+  definition of a file record
+  definition of a file record list
+  routine to traverse a directory tree on disk for all the files and links
+
+   

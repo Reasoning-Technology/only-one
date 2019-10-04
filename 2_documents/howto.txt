@@ -1,10 +1,9 @@
 
 
-  arch_insert <archive> <source>
+  insert <archive> <source>
 
   <archive>
-     this holds the archived data
-
+     this holds the archive, e.g. 'only-one'
 
   <source> 
      <source> is a directory to be traversed.  During traversal 1) unique

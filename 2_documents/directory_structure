@@ -1,0 +1,28 @@
+
+     <only-one> 
+
+       An only-one archive has sub directories:  bin, src, store, and tax.  It
+       has a file named 'version'.
+
+     <only-one>/bin/
+
+       has programs such as 'insert'
+
+     <only-one>/src/
+
+       has the source code for the bin programs.
+
+     <only-one>/store/
+
+       has the node files. Node files have numbers for names.  Each is a unique file.
+
+
+     <only-one>/tax/
+        has the taxonomy
+
+        Each 'sources' file holds the list of pathnames found for each node. Each pathname
+        also has an mtime.  The name 'sources' is followed by a semicolon and a version
+        number.  sources;0 is the most up to date.
+
+     <only-one>/version 
+

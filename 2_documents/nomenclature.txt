@@ -27,13 +27,5 @@ pathname
 
 versioned file name
      a file name with a version number.  As a string the version number is
-     appeneded with a semicolon followed by a number
-
-not versioned file name
-     a file name that does not have a version number.  Note that just a plane
-     'file name' might have a version number or not.
-
-versioned pathname
-      a pathname with a version number
-
-not versioned pathname
+     appeneded with a semicolon followed by a number.  verion ';0' is the most
+     recent.

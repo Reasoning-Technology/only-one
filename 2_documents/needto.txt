@@ -1,3 +1,0 @@
-need to write a book on C or C++ perhaps or in RT that says to never
-put code in main, so that all programs are callable from other
-programs
