@@ -12,7 +12,7 @@ install: insert
 	mv insert ../bin
 
 dist-clean:
-	rm $(EXECS)
+	rm -f $(EXECS)
 
 #arch_restore: arch_restore.cc $(HFILES) 
 #	$(GCC) arch_restore.cc -o arch_restore
