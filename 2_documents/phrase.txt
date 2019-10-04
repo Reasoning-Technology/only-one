@@ -1,0 +1,57 @@
+
+  I've been experimenting with out of band signaling for strings (i.e. tokens)
+  Here I've implemented two types of out of band signaled tokens.  'parse1' and 'parse2'
+
+    see phrase.h for the implementation
+    see any of the tax/sources files for an example of parse1
+
+    only parse1 is currently used by 'only-one' but parse2 has been tested (see test_phrase_2).
+
+1. tokens
+
+  In parse1 a token starts with a control character of '#', and it is parsed as follows:
+           '# ' command means token ends at next white space
+           '#nn..n'  command means token has length 'nn..n'
+            a #0 command will be discarded (will be lost if parse then print)
+
+   # I_am_white_space_delineated <- note the trailing white space ;-)
+   #23 I am 23 characters long <- the 'g' is the 23 character
+
+  In parse2
+     there is a line pair, the top line is control, the bottom line is data.
+
+
+          Control starts with a dot and a space.  The first two characters of the data channel are ignored.
+
+          After the control start, as noted above, a continguious dot stream indicates a token.  dot streams
+          are separated by spaces.
+
+          if the data stream stops but there are more dots, we take the missing data to be spaces
+
+          if the data stream continues beyond the control stream then a) it starts with a ';' the data
+          is taken as a comment.  Otherwise we signal an error as the data will be lost when the header
+          is written out again.
+
+   see phrase.h
+
+2. phrase
+
+    a series of tokens where the first token gives the phrase type
+
+    a node phrase is a series of tokens giving 1) the identifier 'node' 2) the file name
+    under the store directory, which is a number, 3) the latest modification date in
+    seconds, and 4) the md5sum
+
+    a source line phrase 1) 'source' 2) full path and filename to where the file was found
+    when archived 3) the latest modification time.  Each occurance may have a different
+    modification time.  Because all instances are identical the earliest modification time
+    is used as the node's modification time, as it reflects the latest possible time an edit
+    could have been done.
+
+    see phrase.h
+
+3. node set / phrase set
+
+    starts with a node line, followed by source lines, ends at the next node line or the EOF
+
+    see taxonomy.h

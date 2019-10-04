@@ -1,0 +1,11 @@
+
+I wrote this utility in 2012 so as to compact files from a number of nearly identical
+archive CDs then DVDs into one archive.
+
+It served me well for some years; however, I am now writing a more sophisticated tool to
+look for patterns in the archive.  My goal in modifying this code today (2019-10-04) is to
+get the current archive into a datbase form where it may be manipulated and moved to the
+new tool.
+
+Notable perhaps, is that it demonstrated that a couple of variations on quoting strings in
+a manner that escapes for 'quote' characters are not necessary.  (see phrase.h)

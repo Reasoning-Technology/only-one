@@ -1,0 +1,3 @@
+# a # b # c
+# tok1 #4 t k2 # tok3
+#5 ato 1 #6 atok 2 # tok3 ;comment to end of line

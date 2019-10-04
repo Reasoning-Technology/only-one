@@ -1,0 +1,14 @@
+rm test_phrase_1_out.txt test_phrase_2_out.txt test_header_1_out.txt test_insert_out.txt
+./test_phrase_1
+test passed
+diff test_phrase_1_out.txt test_phrase_1_out.txt_correct 
+./test_phrase_2
+test passed
+diff test_phrase_2_out.txt test_phrase_1_out.txt_correct # we purposely test against test_phrase_1_out_correct as format changes
+./test_header_1
+test passed
+diff test_header_1_out.txt test_header_1_out.txt_correct
+./test_header_2
+test passed
+./test_insert.sh >& test_insert_out.txt
+diff test_insert_out.txt test_insert_out.txt_correct

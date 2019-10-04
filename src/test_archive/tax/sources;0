@@ -1,0 +1,44 @@
+# node # 1 # 1348898290 # 7e42f8ec980980e904b2008fd98c1dd4
+# source # test_source1/tmp/q # 1348898290
+# source # test_source2/tmp/q # 1348898290
+
+# node # 2 # 1348939998 # 6cba9bbe4926eeb2fe29567256999a56
+# source # test_source1/log # 1348939998
+# source # test_source2/log # 1348939998
+
+# node # 3 # 1348983906 # 841161d2b435627c34d29224c96a94b1
+# source # test_source1/tmp/r # 1348983906
+# source # test_source2/tmp/r # 1348983906
+# source # test_source1/tmp/s # 1348983924
+# source # test_source2/tmp/s # 1348983924
+
+# node # 4 # 1349990702 # f9bfeb6aa022f0920d759aa1c589bb37
+# source # test_source2/a # 1349990702
+# source # test_source1/d # 1349990832
+# source # test_source1/a # 1349990836
+
+# node # 5 # 1348887609 # 73cdb6a34eb656a86d86518deffc1fce
+# source # test_source2/temp # 1348887609
+# source # test_source1/temp # 1350219746
+
+# node # 6 # 1393321927 # de04d279c25722dc2d8db22048f2a966
+# source # test_source1/tmp/rdiff-backup-data/file1-rdbu # 1393321927
+
+# node # 7 # 1393321935 # cd5adfa4d9272b62eb713127f9444b28
+# source # test_source1/tmp/rdiff-backup-data/file2-rdiff # 1393321935
+
+# node # 8 # 1393322120 # b076965a61a956f122587fd2a9ded807
+# source # test_source1/tmp/.hg/f1_merc # 1393322120
+
+# node # 9 # 1393322129 # c53574063786d66f081cb6b0d9134d7f
+# source # test_source1/tmp/.hg/f2_merc # 1393322129
+
+# node # 10 # 1393323507 # 2e1354fbecae4d3e99e9feb539c4ded1
+# source # test_source1/tmp/.hgignore # 1393323507
+
+# node # 11 # 1348942812 # f740e294294689dfb992c4c4b6b455b3
+# source # test_source2/tmp/list # 1348942812
+
+# node # 12 # 1350073600 # d7f6a9e2f27c87ad5b723c3a3701802e
+# source # test_source2/d # 1350073600
+

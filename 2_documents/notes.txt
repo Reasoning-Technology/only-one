@@ -1,0 +1,29 @@
+
+bug prevents absolute path names,  as 'blaze_path' starts with a null token
+for absolute paths ..
+
+
+need to make hardlinks and set the permisions to read only on the original
+link, rather than doing a copy. -- hardlinks would cause files to be left
+behind after the archive is deleted, and we would have no way to find the 
+orphans ..  'marked for archival'? perhaps but what is the point if they data
+remains?
+
+need to add field for the inode, see the same inode and modification time,
+then we say it is the same file
+
+we do the hard work on the local disk, with tricks such as above, then
+use the incremental insert-file commands to get the files on the mirros.
+
+need to add fields for permission flags (acls?),  for the group and owner,
+
+lineno is sometimes a size_t sometimes a uint, need to fix that
+
+need to explore and perhaps modify the behavior with links
+
+other commands needed
+ list  .. # various expressions for listing files in the archive, regex on name, times, sort output on times,
+ restore  node_number  target_pathname
+ synch arch1 arch2 # cause both archives to have the same entries
+
+

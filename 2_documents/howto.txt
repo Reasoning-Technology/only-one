@@ -1,0 +1,25 @@
+
+
+  arch_insert <archive> <source>
+
+  <archive>
+     this holds the archived data
+
+
+  <source> 
+     <source> is a directory to be traversed.  During traversal 1) unique
+     files that are copied into the store directory, 2) an entry denoted
+     the path the file is found at is placed into a map constructed in memory.
+   
+     uniqueness is determined by the same() function, found in file.h
+
+     links are to be followed, if there is a referential loop the
+     program gives up, otherwise the target file is handled just as
+     though it were found during scanning, while its pathname is that of
+     its physical location, i.e. the value of the final link.
+
+        
+
+
+       
+
