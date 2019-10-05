@@ -1,8 +1,5 @@
 /*
-
-2012-10-04 Copyright (C) Thomas W. Lynch All Rights Reserved
-
-  arch_insert <archive> <source>
+  insert <archive> <source>
 
   <archive>
      directory to hold the archived data
@@ -221,9 +218,9 @@ using namespace std;
   const uint AI_ParseFail = 2;
   const uint AI_SystemErr = 3;
 
-  uint arch_insert(
-     const string &taxonomy_pathname // path to the node index file that will become the nodes_map in memory
-    ,const string &source_path // source files from here
+  uint insert(
+     const string &taxonomy_pathname
+    ,const string &source_path // source files from this directory subtree
     ,const string &store_path  // directory that holds the file 'nodes' - a node is a unique file with a number for a name
     ,const list<regex> &excludes // source files with names that match any of these regexs should not be put in the archive
     ,bool verbose // progress messgaes
@@ -238,7 +235,9 @@ using namespace std;
         RETURN AI_OpenFail;
       }
 
-      if(verbose) cout << "parsing taxonomy file: \"" << taxonomy_pathname << "\" to get the nodes_map.. " << endl;
+      // tests fail becamse the taxonomy_pathname here is a temp file name that has the pid as a suffix
+      // also deleted the line from test_insert_out.txt_expected
+      //      if(verbose) cout << "parsing taxonomy file: \"" << taxonomy_pathname << "\" to get the nodes_map.. " << endl;
       uint lineno=0;
       nodes_map a_nodes_map;
       if( a_nodes_map.parse(is ,taxonomy_pathname ,lineno) != ParseStatus::Found){ // filename passed for err messes
@@ -304,7 +303,7 @@ using namespace std;
    1. This parses the command line and gets the options
    2. makes a tempory file of the tax/source, though this seems unnecessary as the next
       step only reads the tax/source temporary file
-   3. calls 'arch_insert' to put the source files into the archive and to update the index
+   3. calls 'insert' to put the source files into the archive and to update the index
    4. writes the index back out to a new tax/source file
 
 */
@@ -454,7 +453,7 @@ using namespace std;
       cout << "sourcing files from: \"" << source_path << "\"" << endl;
       cout << "placing nodes in store at: \"" << store_path << "\"" << endl;
     }
-    if( arch_insert(temp_tax_pathname.str() ,source_path ,store_path ,excludes ,verbose ,list_insert) != AI_Success){
+    if( insert(temp_tax_pathname.str() ,source_path ,store_path ,excludes ,verbose ,list_insert) != AI_Success){
       cerr << "Internal error when inserting into archive. Check for extraneous temp files and nodes." << endl;
       RETURN Exit_InternalError;
     }

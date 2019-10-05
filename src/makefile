@@ -2,20 +2,26 @@
 
 
 HFILES= $(wildcard *.h)
-EXECS= insert test_phrase_1 test_phrase_2 test_nodes_map_1 test_nodes_map_2 try_md5
+EXECS= to_db insert test_phrase_1 test_phrase_2 test_nodes_map_1 test_nodes_map_2 try_md5
 
-GCC= g++ -std=c++11 -g -lssl -lcrypto
+#pq is only used by to_pq
+GCC= g++ -std=c++11 -g -lssl -lcrypto -lpq
 
 all: insert test
 
 install: insert
 	mv insert ../bin
 
+clean:
+dist_clean:
 dist-clean:
 	rm -f $(EXECS)
 
 #arch_restore: arch_restore.cc $(HFILES) 
 #	$(GCC) arch_restore.cc -o arch_restore
+
+to_pq: to_pq.cc $(HFILES) 
+	$(GCC) to_db.cc -o to_pq
 
 insert: insert.cc $(HFILES) 
 	$(GCC) insert.cc -o insert
