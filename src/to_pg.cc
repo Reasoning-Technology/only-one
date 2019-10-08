@@ -113,6 +113,7 @@ PGconn *open_pg(const string &user, const string&db){
         query 
           << "');";
         res = PQexec(conn, query.str().c_str());
+        query.clear();
         query.str(std::string());
         if (PQresultStatus(res) != PGRES_COMMAND_OK) {
           cerr << PQresultErrorMessage(res) << endl;
@@ -128,6 +129,7 @@ PGconn *open_pg(const string &user, const string&db){
             << " ,'" << fr_it->pathname << "'"
             << ");";
           res = PQexec(conn, query.str().c_str());
+          query.clear();
           query.str(std::string());
           if (PQresultStatus(res) != PGRES_COMMAND_OK) {
             cerr << PQresultErrorMessage(res) << endl;
