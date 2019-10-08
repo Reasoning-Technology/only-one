@@ -1,30 +1,34 @@
-
-
-
 HFILES= $(wildcard *.h)
-EXECS= to_db insert test_phrase_1 test_phrase_2 test_nodes_map_1 test_nodes_map_2 try_md5
+EXEC= to_pg insert libpq_version pq_version
+EXEC_TEST= test_phrase_1 test_phrase_2 test_nodes_map_1 test_nodes_map_2
+EXEC_TRY=  try_md5
 
-#pq is only used by to_pq
-GCC= g++ -std=c++11 -g -lssl -lcrypto -lpq
+GCC= g++ -std=c++11 -g -lssl -lcrypto 
 
-all: insert test
+all: $(EXEC)
+try: $(EXEC_TRY)
+
 
 install: insert
 	mv insert ../bin
 
 clean:
-dist_clean:
-dist-clean:
-	rm -f $(EXECS)
+	rm -f $(EXEC) $(EXEC_TEST) $(EXEC_TRY)
 
 #arch_restore: arch_restore.cc $(HFILES) 
 #	$(GCC) arch_restore.cc -o arch_restore
 
-to_pq: to_pq.cc $(HFILES) 
-	$(GCC) to_db.cc -o to_pq
+to_pg: to_pg.cc $(HFILES) 
+	$(GCC) -lpq to_pg.cc -o to_pg
 
 insert: insert.cc $(HFILES) 
 	$(GCC) insert.cc -o insert
+
+libpq_version: libpq_version.cc
+	$(GCC) -lpq libpq_version.cc -o libpq_version
+
+pq_version: pq_version.cc
+	$(GCC) -lpq pq_version.cc -o pq_version
 
 test_phrase_1: test_phrase_1.cc $(HFILES) 
 	$(GCC) test_phrase_1.cc -o test_phrase_1
@@ -44,8 +48,8 @@ try_md5: try_md5.cc
 	./try_md5 try_md5.cc >& try_md5.out
 	diff try_md5.out try_md5.out_expected
 
-test: test_phrase_1 test_phrase_2 test_nodes_map_1 test_nodes_map_2 insert
-	- rm test_phrase_1_out.txt test_phrase_2_out.txt test_nodes_map_1_out.txt test_insert_out.txt
+test: all try $(EXEC_TEST)
+	rm -f test_phrase_1_out.txt test_phrase_2_out.txt test_nodes_map_1_out.txt test_insert_out.txt
 	./test_phrase_1
 	diff test_phrase_1_out.txt test_phrase_1_out.txt_expected 
 	./test_phrase_2

@@ -1,0 +1,55 @@
+> psql db
+psql (11.5)
+Type "help" for help.
+
+db=> \dt
+              List of relations
+ Schema |       Name       | Type  |  Owner   
+--------+------------------+-------+----------
+ public | arch_nodes       | table | morpheus
+ public | arch_source      | table | morpheus
+(2 rows)
+
+db=> select * from arch_nodes;
+ node |   mtime    |            signature             
+------+------------+----------------------------------
+    1 | 1348898290 | 7e42f8ec980980e904b2008fd98c1dd4
+    2 | 1348939998 | 6cba9bbe4926eeb2fe29567256999a56
+    3 | 1348983906 | 841161d2b435627c34d29224c96a94b1
+    4 | 1349990702 | f9bfeb6aa022f0920d759aa1c589bb37
+    5 | 1348887609 | 73cdb6a34eb656a86d86518deffc1fce
+    6 | 1393321927 | de04d279c25722dc2d8db22048f2a966
+    7 | 1393321935 | cd5adfa4d9272b62eb713127f9444b28
+    8 | 1393322120 | b076965a61a956f122587fd2a9ded807
+    9 | 1393322129 | c53574063786d66f081cb6b0d9134d7f
+   10 | 1393323507 | 2e1354fbecae4d3e99e9feb539c4ded1
+   11 | 1348942812 | f740e294294689dfb992c4c4b6b455b3
+   12 | 1350073600 | d7f6a9e2f27c87ad5b723c3a3701802e
+(12 rows)
+
+db=> select * from arch_source;
+ id | node |   mtime    |                    pathname                    
+----+------+------------+------------------------------------------------
+  1 |    1 | 1348898290 | test_source1/tmp/q
+  2 |    1 | 1348898290 | test_source2/tmp/q
+  3 |    2 | 1348939998 | test_source1/log
+  4 |    2 | 1348939998 | test_source2/log
+  5 |    3 | 1348983906 | test_source1/tmp/r
+  6 |    3 | 1348983906 | test_source2/tmp/r
+  7 |    3 | 1348983924 | test_source1/tmp/s
+  8 |    3 | 1348983924 | test_source2/tmp/s
+  9 |    4 | 1349990702 | test_source2/a
+ 10 |    4 | 1349990832 | test_source1/d
+ 11 |    4 | 1349990836 | test_source1/a
+ 12 |    5 | 1348887609 | test_source2/temp
+ 13 |    5 | 1350219746 | test_source1/temp
+ 14 |    6 | 1393321927 | test_source1/tmp/rdiff-backup-data/file1-rdbu
+ 15 |    7 | 1393321935 | test_source1/tmp/rdiff-backup-data/file2-rdiff
+ 16 |    8 | 1393322120 | test_source1/tmp/.hg/f1_merc
+ 17 |    9 | 1393322129 | test_source1/tmp/.hg/f2_merc
+ 18 |   10 | 1393323507 | test_source1/tmp/.hgignore
+ 19 |   11 | 1348942812 | test_source2/tmp/list
+ 20 |   12 | 1350073600 | test_source2/d
+(20 rows)
+
+db=>

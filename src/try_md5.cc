@@ -43,6 +43,7 @@ public:
     file_buffer = (char *)mmap(0, file_size, PROT_READ, MAP_SHARED, file_descript, 0);
     MD5((unsigned char*) file_buffer, file_size, the_sum);
     close(file_descript);
+    return true;
   }
 
   uchar the_sum[MD5_DIGEST_LENGTH];

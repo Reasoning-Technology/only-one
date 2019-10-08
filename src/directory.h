@@ -53,8 +53,8 @@ breadth first directory tree traversal routine, 'list_files'
     file_record(string &pathname ,time_t mtime, string &target): pathname(pathname),mtime(mtime),type(F_symbol_link),target(target){;}
 
     unsigned int type;
-    string pathname;  // the full path to the file
     time_t mtime;  // the modification time of the file
+    string pathname;  // the full path to the file
     string target; // used for symoblic links, target file pathname
 
     // prints the file record into a phrase 

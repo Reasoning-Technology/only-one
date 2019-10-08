@@ -1,0 +1,13 @@
+
+CREATE TABLE arch_nodes (
+  node BIGINT PRIMARY KEY
+  ,mtime BIGINT
+  ,signature TEXT
+);
+
+CREATE TABLE arch_source (
+  id BIGSERIAL PRIMARY KEY
+  ,node BIGINT
+  ,mtime BIGINT
+  ,pathname TEXT
+);
