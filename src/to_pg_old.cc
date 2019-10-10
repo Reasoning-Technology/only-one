@@ -1,7 +1,6 @@
 /*
   Copies the archive to a PostgreSQL database.
 
-  It is a bit of a hack, and is only expected to be used once.
 */
 
 // before we start, a bit of Vogon poetry:
@@ -44,7 +43,6 @@ const uint Exit_FileCreationError =5;
 using namespace std;
 
 #include<libpq-fe.h>
-#include<libpq/libpq-fs.h>
 
 // local objects used
 #include "file.h"
@@ -73,9 +71,8 @@ PGconn *open_pg(const string &user, const string&db){
   const uint PG_ParseFail = 2;
   const uint PG_SystemErr = 3;
 
-  uint to_pg(
-     const string &store_path
-     ,const string &taxonomy_pathname 
+  uint tax_to_pg(
+     const string &taxonomy_pathname 
      ,PGconn *conn
   ){
     // open, parse into memory, and close, the sources file 
@@ -96,73 +93,77 @@ PGconn *open_pg(const string &user, const string&db){
       cout << "parse complete" << endl;
       is.close();
 
-    // copy the only_one archive to the db
+    // copy the taxonomy map to the db
     //
       cout << "writing db" << endl;
-      stringstream stream_buffer;
+      const string query0 = "INSERT INTO arch_nodes (node ,mtime ,signature) VALUES ( $1 ,$2 ,$3 )";
+      struct query0_parms{
+        size_t node;
+        time_t mtime;
+        char signature[32];
+      };
+      query0_parms qp0;
+      const char *const *query0_parms_pt = (const char* const*)&qp0;
+      int query0_n = 3;
+      int query0_sizes[] = {sizeof(size_t), sizeof(time_t), 32};
+      int query0_formats[] = {1 ,1 ,0};
+      int query0_result_format = 0;
+
+      const string query1 = "INSERT INTO arch_source (node ,mtime ,pathname) VALUES ( $1 ,$2 ,$3 )";
+      struct query1_parms{
+        size_t node;
+        time_t mtime;
+        char *pathname;
+      };
+      query1_parms qp1;
+      int query1_n = 3;
+      int query1_sizes[] = {sizeof(size_t), sizeof(time_t), sizeof(char *)};
+      int query1_formats[] = {1 ,1 ,0};
+
+      stringstream node_sig;
       PGresult *res;
       nodes_map::iterator nm_it = a_nodes_map.begin();
-      char *pathname;
       while( nm_it != a_nodes_map.end() ){
-        res = PQexec(conn, "BEGIN");
-        if (PQresultStatus(res) != PGRES_COMMAND_OK) {
-          cerr << PQresultErrorMessage(res) << endl;
-        }
         node_set &ns = nm_it->second; // the sources list
         size_t node = nm_it->second.node;
-
-        // load the node file into the lo table
-        stream_buffer << store_path << "/" << dec << node;
-        Oid file_id = lo_import(conn, stream_buffer.str().c_str());
-        if( file_id == InvalidOid){
-          cerr << PQerrorMessage(conn) << endl;
-        }
-        stream_buffer.clear();
-        stream_buffer.str(std::string());
-
-        // put the node metadata into arch_nodes table
-        stream_buffer
-          << "INSERT INTO arch_nodes (node ,file_id ,mtime ,signature) VALUES ("
-          << dec << node
-          << " ," << file_id
-          << " ," << nm_it->second.mtime
-          << " ,"
-          << "'";
-        nm_it->second.node_signature.print(stream_buffer);
-        stream_buffer 
-          << "');";
-        res = PQexec(conn, stream_buffer.str().c_str());
-        stream_buffer.clear();
-        stream_buffer.str(std::string());
+        qp0.node = node;
+        qp0.mtime = nm_it->second.mtime;
+        nm_it->second.node_signature.print(node_sig);
+        strcpy(qp0.signature ,node_sig.str().c_str());
+        node_sig.clear(); node_sig.str(std::string());
+        res = PQexecParams
+          (
+           conn 
+           ,query0.c_str() 
+           ,query0_n 
+           ,NULL 
+           ,query0_parms_pt 
+           ,query0_sizes ,query0_formats
+           ,query0_result_format
+           );
         if (PQresultStatus(res) != PGRES_COMMAND_OK) {
           cerr << PQresultErrorMessage(res) << endl;
         }
 
-        // the source files associated with the node
+        /*
         file_record_list::iterator fr_it = nm_it->second.sources.begin();
         file_record_list::iterator fr_end = nm_it->second.sources.end();
         while( fr_it != fr_end ){
-          pathname = PQescapeLiteral(conn, fr_it->pathname.c_str(), strlen(fr_it->pathname.c_str()));
-          stream_buffer
+          query
             << "INSERT INTO arch_source (node ,mtime ,pathname) VALUES ("
             << dec << node
             << " ," << fr_it->mtime 
-            << " ," << pathname
+            << " ,'" << fr_it->pathname << "'"
             << ");";
-          PQfreemem(pathname);
-          res = PQexec(conn, stream_buffer.str().c_str());
-          stream_buffer.clear();
-          stream_buffer.str(std::string());
+          res = PQexec(conn, query.str().c_str());
+          query.clear();
+          query.str(std::string());
           if (PQresultStatus(res) != PGRES_COMMAND_OK) {
             cerr << PQresultErrorMessage(res) << endl;
           }
           fr_it++;
         }
-
-        res = PQexec(conn, "COMMIT");
-        if (PQresultStatus(res) != PGRES_COMMAND_OK) {
-          cerr << PQresultErrorMessage(res) << endl;
-        }
+        */
         nm_it++;
       }
   PQfinish(conn);
@@ -276,7 +277,7 @@ PGconn *open_pg(const string &user, const string&db){
 
   // first move the taxonomy the db, then move the store contents
   //
-    if( to_pg(store_path ,taxonomy_pathname.str() ,conn) != PG_Success){
+    if( tax_to_pg(taxonomy_pathname.str(), conn) != PG_Success){
       cerr << "Error transfering tax to pq" << endl;
       RETURN 1;
     }

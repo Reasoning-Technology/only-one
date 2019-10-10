@@ -1,0 +1,15 @@
+
+
+
+  ...
+  rets PQexec works, so nothing is wrong with conn.
+  in debugger filename is correct.
+  psql run from the same shell runs lo_import no problem
+  
+        Oid file_id = lo_import(conn, filename);
+
+   file_id is zero after. PQerrorMessage prints:
+
+      ERROR:  invalid large-object descriptor: 0
+
+
